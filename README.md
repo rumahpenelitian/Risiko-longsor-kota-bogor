@@ -57,7 +57,7 @@ bogor-landslide-risk/
 
 1. Clone repository ini
 ```bash
-[https://github.com/dafahuda/bogor-landslide-risk.git]
+https://github.com/dafahuda/bogor-landslide-risk.git
 ```
 
 2. Buat folder sesuai struktur di atas
