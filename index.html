@@ -83,11 +83,13 @@
           <div class="form-group search-box">
             <label for="curahHujan">Curah Hujan (mm/tahun):</label>
             <input
-              type="number"
-              id="curahHujan"
-              name="curahHujan"
-              placeholder="Contoh: 2500"
-            />
+                type="number"
+                id="curahHujan"
+                name="curahHujan"
+                placeholder="Range: 3500 - 4500"
+                min="3500"
+                max="45001"
+              />
             <small>Masukkan data curah hujan tahunan dalam milimeter</small>
           </div>
 
@@ -97,9 +99,9 @@
               type="number"
               id="ketinggianTanah"
               name="ketinggianTanah"
-              placeholder="Range: 190 - 330"
-              min="190"
-              max="330"
+              placeholder="Range: 0 - 700"
+              min="0"
+              max="701"
             />
             <small
               >Masukkan ketinggian tanah dalam meter di atas permukaan
@@ -113,9 +115,9 @@
               type="number"
               id="kemiringanTanah"
               name="kemiringanTanah"
-              placeholder="Range: 5 - 40"
-              min="5"
-              max="40"
+              placeholder="Range: 0 - 40"
+              min="0"
+              max="41"
             />
           </div>
 
