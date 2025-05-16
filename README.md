@@ -66,7 +66,7 @@ https://github.com/dafahuda/bogor-landslide-risk.git
 
 ## Demo
 
-Aplikasi dapat diakses online di: coming soon!!
+Aplikasi dapat diakses online di: https://dafahuda.github.io/bogor-landslide-risk/
 
 ## Kontribusi
 
