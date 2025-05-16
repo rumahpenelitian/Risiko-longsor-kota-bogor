@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Peta interaktif batas wilayah Kota Bogor dengan informasi Kecamatan dan Kelurahan"
+    />
+    <meta name="theme-color" content="#1e3c72" />
+    <title>Peta Batas Wilayah & Risiko Longsor Di Kota Bogor</title>
+
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <div
+      id="selection-panel"
+      role="complementary"
+      aria-label="Panel Pemilihan Wilayah"
+    >
+      <div class="panel-header">
+        <h1>
+          <i class="fas fa-map-marked-alt" aria-hidden="true"></i> Peta Batas
+          Wilayah & Risiko Longsor Di Kota Bogor
+        </h1>
+      </div>
+      <div class="search-container">
+        <div class="info-panel" role="region" aria-label="Informasi Wilayah">
+          <div class="info-header">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            <span>Informasi Wilayah</span>
+          </div>
+          <div id="area-info" aria-live="polite">
+            Silakan pilih kecamatan dan kelurahan untuk melihat informasi
+            detail.
+          </div>
+        </div>
+        <div class="search-box">
+          <label for="kecamatan" class="visually-hidden">Pilih Kecamatan</label>
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <select id="kecamatan" aria-label="Pilih Kecamatan">
+            <option value="">Pilih Kecamatan</option>
+          </select>
+        </div>
+        <div class="search-box">
+          <label for="kelurahan" class="visually-hidden">Pilih Kelurahan</label>
+          <i class="fas fa-map-pin" aria-hidden="true"></i>
+          <select id="kelurahan" aria-label="Pilih Kelurahan">
+            <option value="">Pilih Kelurahan</option>
+          </select>
+        </div>
+
+        <div class="input-form">
+          <h3>Input Data Prediksi Fuzzy Logic</h3>
+
+          <div class="form-group search-box">
+            <label for="curahHujan">Curah Hujan (mm/tahun):</label>
+            <input
+              type="number"
+              id="curahHujan"
+              name="curahHujan"
+              placeholder="Contoh: 2500"
+            />
+            <small>Masukkan data curah hujan tahunan dalam milimeter</small>
+          </div>
+
+          <div class="form-group search-box">
+            <label for="ketinggianTanah">Ketinggian Tanah (mdpl):</label>
+            <input
+              type="number"
+              id="ketinggianTanah"
+              name="ketinggianTanah"
+              placeholder="Range: 190 - 330"
+              min="190"
+              max="330"
+            />
+            <small
+              >Masukkan ketinggian tanah dalam meter di atas permukaan
+              laut</small
+            >
+          </div>
+
+          <div class="form-group search-box">
+            <label for="kemiringanTanah">Kemiringan Tanah (derajat):</label>
+            <input
+              type="number"
+              id="kemiringanTanah"
+              name="kemiringanTanah"
+              placeholder="Range: 5 - 40"
+              min="5"
+              max="40"
+            />
+          </div>
+
+          <div class="form-group search-box">
+            <label for="jenisLatosol">Jenis Latosol:</label>
+            <div class="readonly-box" id="jenisLatosol">Latosol</div>
+            <small
+              >Jenis tanah di Kota Bogor didominasi oleh tanah Latosol yang
+              memiliki karakteristik tanah yang subur dan cocok untuk
+              pertanian</small
+            >
+          </div>
+
+          <div class="form-group search-box">
+            <label for="tutupanTanah">Tutupan Tanah:</label>
+            <select id="tutupanTanah" name="tutupanTanah">
+              <option value="">Pilih jenis tutupan tanah</option>
+              <option value="10">Permukiman, perdagangan (10)</option>
+              <option value="20">Perkebunan, pertanian (20)</option>
+              <option value="30">Hutan, ruang terbuka (30)</option>
+            </select>
+            <small>
+              Klasifikasi tutupan tanah:<br />
+              - Permukiman & perdagangan: nilai 10<br />
+              - Perkebunan & pertanian: nilai 20<br />
+              - Hutan & ruang terbuka: nilai 30
+            </small>
+          </div>
+
+          <button type="button" id="submitData">Hitung Fuzzy Logic</button>
+
+          <div
+            id="hasilPerhitungan"
+            class="hasil-container"
+            style="display: none"
+          >
+            <h4>Hasil Perhitungan Fuzzy Logic</h4>
+            <div id="hasilDetail"></div>
+
+            <div class="visualization-container">
+              <div class="chart-wrapper">
+                <h5>Membership Functions - Input</h5>
+                <canvas id="inputMembershipChart"></canvas>
+              </div>
+              <div class="chart-wrapper">
+                <h5>Membership Functions - Output</h5>
+                <canvas id="outputMembershipChart"></canvas>
+              </div>
+            </div>
+
+            <div class="risk-details">
+              <h5>Risk Assessment Details</h5>
+              <div id="riskDetails"></div>
+              <div id="recommendations"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <p>
+          <i class="fas fa-code" aria-hidden="true"></i> Developed by Your Name
+        </p>
+      </div>
+    </div>
+    <main
+      id="map"
+      role="main"
+      aria-label="Peta Interaktif Batas Wilayah Bogor"
+    ></main>
+
+    <!-- Leaflet JavaScript -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/fuzzy_logic.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
