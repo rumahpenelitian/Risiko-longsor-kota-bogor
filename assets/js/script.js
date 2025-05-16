@@ -160,7 +160,7 @@ function normalizeKecamatanName(name) {
 }
 
 // Fetch GeoJSON data
-fetch('/assets/data/bogor-city.geojson')
+fetch('./assets/data/bogor-city.geojson')
     .then(response => response.json())
     .then(data => {
         geojsonData = data;
