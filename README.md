@@ -65,7 +65,8 @@ https://github.com/dafahuda/bogor-landslide-risk.git
 
 2. Buat folder sesuai struktur di atas
 3. Pindahkan file ke folder yang sesuai
-4. Buka file `index.html` di browser
+4. Jalankan Local live webserver
+5. Buka file `index.html` di browser
 
 ## Demo
 
