@@ -1,5 +1,7 @@
 # Peta Batas Wilayah & Risiko Longsor Di Kota Bogor
+
 ^^
+
 Aplikasi web interaktif untuk menampilkan peta batas wilayah Kota Bogor dan perhitungan risiko longsor menggunakan metode Fuzzy Logic.
 
 Hasill peta persebaran prediksi bencana alam longsor di Kota Bogor menggunakan metode Fuzzy Logic
