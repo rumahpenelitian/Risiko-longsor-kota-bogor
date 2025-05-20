@@ -60,7 +60,7 @@ bogor-landslide-risk/
 
 1. Clone repository ini
 ```bash
-https://github.com/dafahuda/bogor-landslide-risk.git
+https://github.com/rumahpenelitian/Risiko-longsor-kota-bogor.git
 ```
 
 2. Buat folder sesuai struktur di atas
@@ -70,7 +70,7 @@ https://github.com/dafahuda/bogor-landslide-risk.git
 
 ## Demo
 
-Aplikasi dapat diakses online di: https://dafahuda.github.io/bogor-landslide-risk/
+Aplikasi dapat diakses online di: https://rumahpenelitian.github.io/Risiko-longsor-kota-bogor/
 
 ## Kontribusi
 
